@@ -20,12 +20,12 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-l1licswe3@3ohtv4-$y(yy3d1@50^6)$35r16c7d$6w9$xs1#9'
-
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
-
-ALLOWED_HOSTS = ['*']
+DEBUG = os.environ.get("DEBUG", "False").lower() == "true"
+SECRET_KEY = os.environ.get("SECRET_KEY", "fallback-dev-insecure-key")
+# Cloud domain whitelist
+ALLOWED_HOSTS = [".onrender.com", "localhost", "127.0.0.1"]
+# Required for HTTPS POST on Django 4/5
+CSRF_TRUSTED_ORIGINS = ["https://*.onrender.com"]
 
 
 # Application definition
